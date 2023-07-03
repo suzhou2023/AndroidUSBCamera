@@ -25,7 +25,8 @@ import androidx.fragment.app.Fragment
 import com.gyf.immersionbar.ImmersionBar
 import com.jiangdg.ausbc.utils.ToastUtils
 import com.jiangdg.ausbc.utils.Utils
-import com.jiangdg.demo.databinding.ActivityMainBinding
+import com.jiangdg.natives.R
+import com.jiangdg.natives.databinding.ActivityMainBinding
 
 /**
  * Demos of camera usage

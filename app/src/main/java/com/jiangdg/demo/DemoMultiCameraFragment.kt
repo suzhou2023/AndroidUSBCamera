@@ -16,7 +16,8 @@ import com.jiangdg.ausbc.callback.ICaptureCallBack
 import com.jiangdg.ausbc.camera.CameraUVC
 import com.jiangdg.ausbc.camera.bean.CameraRequest
 import com.jiangdg.ausbc.utils.ToastUtils
-import com.jiangdg.demo.databinding.FragmentMultiCameraBinding
+import com.jiangdg.natives.R
+import com.jiangdg.natives.databinding.FragmentMultiCameraBinding
 
 /** Multi-road camera demo
  *

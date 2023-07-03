@@ -28,7 +28,7 @@ import com.jiangdg.ausbc.camera.bean.CameraRequest
 import com.jiangdg.ausbc.utils.Logger
 import com.jiangdg.ausbc.utils.ToastUtils
 import com.jiangdg.ausbc.widget.AspectRatioGLSurfaceView
-import com.jiangdg.demo.databinding.FragmentGlsurfaceBinding
+import com.jiangdg.natives.databinding.FragmentGlsurfaceBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

@@ -4,7 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jiangdg.ausbc.base.BaseBottomDialog
-import com.jiangdg.demo.databinding.DialogMultiCamerasBinding
+import com.jiangdg.natives.R
+import com.jiangdg.natives.databinding.DialogMultiCamerasBinding
 
 /** Multi Camera Dialog
  *
@@ -26,7 +27,7 @@ class MultiCameraDialog : BaseBottomDialog() {
         setTopOffset(200)
     }
 
-    override fun getRootView(inflater: LayoutInflater, container: ViewGroup?): View? {
+    override fun getRootView(inflater: LayoutInflater, container: ViewGroup?): View {
         mViewBinding = DialogMultiCamerasBinding.inflate(inflater, container, false)
         return mViewBinding.root
     }

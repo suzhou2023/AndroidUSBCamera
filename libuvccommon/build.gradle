@@ -19,8 +19,9 @@ apply plugin: 'com.android.library'
 */
 
 android {
-    compileSdkVersion rootProject.ext.versionCompiler
-    buildToolsVersion rootProject.ext.versionBuildTool
+    namespace 'com.jiangdg.common'
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     compileOptions {
         sourceCompatibility rootProject.ext.javaSourceCompatibility
@@ -28,7 +29,7 @@ android {
     }
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.versionTarget
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 222
         versionName '4.1.1'
         buildConfigField "String", "STL_NAME", "\"${project.property("STL_NAME")}\""
@@ -38,6 +39,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 

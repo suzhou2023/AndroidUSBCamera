@@ -19,14 +19,15 @@ import android.content.Context
 import android.graphics.SurfaceTexture
 import android.hardware.usb.UsbDevice
 import android.view.*
+import android.view.TextureView.SurfaceTextureListener
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.jiangdg.ausbc.MultiCameraClient
-import com.jiangdg.ausbc.camera.bean.CameraRequest
-import com.jiangdg.ausbc.camera.bean.PreviewSize
 import com.jiangdg.ausbc.callback.*
 import com.jiangdg.ausbc.camera.CameraUVC
+import com.jiangdg.ausbc.camera.bean.CameraRequest
+import com.jiangdg.ausbc.camera.bean.PreviewSize
 import com.jiangdg.ausbc.render.effect.AbstractEffect
 import com.jiangdg.ausbc.render.effect.EffectBlackWhite
 import com.jiangdg.ausbc.render.env.RotateType
@@ -34,7 +35,6 @@ import com.jiangdg.ausbc.utils.Logger
 import com.jiangdg.ausbc.utils.SettableFuture
 import com.jiangdg.ausbc.widget.IAspectRatio
 import com.jiangdg.usb.USBMonitor
-import java.lang.IllegalArgumentException
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -158,9 +158,9 @@ abstract class CameraActivity: BaseActivity(), ICameraStateCallBack {
     protected fun getDeviceList() = mCameraClient?.getDeviceList()
 
     private fun handleTextureView(textureView: TextureView) {
-        textureView.surfaceTextureListener = object : TextureView.SurfaceTextureListener {
+        textureView.surfaceTextureListener = object: SurfaceTextureListener {
             override fun onSurfaceTextureAvailable(
-                surface: SurfaceTexture?,
+                surface: SurfaceTexture,
                 width: Int,
                 height: Int
             ) {
@@ -168,31 +168,31 @@ abstract class CameraActivity: BaseActivity(), ICameraStateCallBack {
             }
 
             override fun onSurfaceTextureSizeChanged(
-                surface: SurfaceTexture?,
+                surface: SurfaceTexture,
                 width: Int,
                 height: Int
             ) {
                 surfaceSizeChanged(width, height)
             }
 
-            override fun onSurfaceTextureDestroyed(surface: SurfaceTexture?): Boolean {
+            override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
                 unRegisterMultiCamera()
                 return false
             }
 
-            override fun onSurfaceTextureUpdated(surface: SurfaceTexture?) {
+            override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {
             }
         }
     }
 
     private fun handleSurfaceView(surfaceView: SurfaceView) {
         surfaceView.holder.addCallback(object : SurfaceHolder.Callback {
-            override fun surfaceCreated(holder: SurfaceHolder?) {
+            override fun surfaceCreated(holder: SurfaceHolder) {
                 registerMultiCamera()
             }
 
             override fun surfaceChanged(
-                holder: SurfaceHolder?,
+                holder: SurfaceHolder,
                 format: Int,
                 width: Int,
                 height: Int
@@ -200,7 +200,7 @@ abstract class CameraActivity: BaseActivity(), ICameraStateCallBack {
                 surfaceSizeChanged(width, height)
             }
 
-            override fun surfaceDestroyed(holder: SurfaceHolder?) {
+            override fun surfaceDestroyed(holder: SurfaceHolder) {
                 unRegisterMultiCamera()
             }
         })

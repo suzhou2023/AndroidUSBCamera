@@ -45,7 +45,6 @@ import com.jiangdg.ausbc.MultiCameraClient
 import com.jiangdg.ausbc.base.BaseBottomDialog
 import com.jiangdg.ausbc.base.CameraFragment
 import com.jiangdg.ausbc.callback.ICameraStateCallBack
-import com.jiangdg.demo.databinding.FragmentDemoBinding
 import com.jiangdg.ausbc.callback.ICaptureCallBack
 import com.jiangdg.ausbc.callback.IPlayCallBack
 import com.jiangdg.ausbc.camera.CameraUVC
@@ -61,7 +60,9 @@ import com.jiangdg.utils.imageloader.ImageLoaders
 import com.jiangdg.ausbc.widget.*
 import com.jiangdg.demo.EffectListDialog.Companion.KEY_ANIMATION
 import com.jiangdg.demo.EffectListDialog.Companion.KEY_FILTER
-import com.jiangdg.demo.databinding.DialogMoreBinding
+import com.jiangdg.natives.R
+import com.jiangdg.natives.databinding.DialogMoreBinding
+import com.jiangdg.natives.databinding.FragmentDemoBinding
 import com.jiangdg.utils.MMKVUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -432,7 +433,7 @@ class DemoFragment : CameraFragment(), View.OnClickListener, CaptureMediaView.On
 //            return
 //        }
         clickAnimation(v!!, object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 when (v) {
                     mViewBinding.lensFacingBtn1 -> {
                         getCurrentCamera()?.let { strategy ->
@@ -718,7 +719,7 @@ class DemoFragment : CameraFragment(), View.OnClickListener, CaptureMediaView.On
             )
             translationX.duration = 600
             translationX.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationStart(animation: Animator?) {
+                override fun onAnimationStart(animation: Animator) {
                     super.onAnimationStart(animation)
                     mViewBinding.controlPanelLayout.visibility = View.VISIBLE
                 }
@@ -733,7 +734,7 @@ class DemoFragment : CameraFragment(), View.OnClickListener, CaptureMediaView.On
             )
             translationX.duration = 600
             translationX.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator?) {
+                override fun onAnimationEnd(animation: Animator) {
                     super.onAnimationEnd(animation)
                     mViewBinding.controlPanelLayout.visibility = View.INVISIBLE
                 }

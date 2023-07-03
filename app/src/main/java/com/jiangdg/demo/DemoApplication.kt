@@ -15,8 +15,6 @@
  */
 package com.jiangdg.demo
 
-import android.content.Context
-import androidx.multidex.MultiDex
 import com.jiangdg.ausbc.base.BaseApplication
 import com.jiangdg.utils.MMKVUtils
 import com.tencent.bugly.crashreport.CrashReport
@@ -26,11 +24,6 @@ import com.tencent.bugly.crashreport.CrashReport
  * @author Created by jiangdg on 2022/2/28
  */
 class DemoApplication: BaseApplication() {
-
-    override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(base)
-        MultiDex.install(this)
-    }
 
     override fun onCreate() {
         super.onCreate()

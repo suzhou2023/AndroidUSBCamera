@@ -3,18 +3,18 @@ apply plugin: 'com.android.library'
 import org.apache.tools.ant.taskdefs.condition.Os
 
 android {
-	compileSdkVersion rootProject.ext.versionCompiler
-	buildToolsVersion rootProject.ext.versionBuildTool
+	namespace 'com.jiangdg.libuvc'
+	compileSdkVersion rootProject.ext.compileSdkVersion
+	buildToolsVersion rootProject.ext.buildToolsVersion
+	defaultConfig {
+		minSdkVersion rootProject.ext.minSdkVersion
+		targetSdkVersion rootProject.ext.targetSdkVersion
+	}
 
 	compileOptions {
 		sourceCompatibility rootProject.ext.javaSourceCompatibility
 		targetCompatibility rootProject.ext.javaTargetCompatibility
 	}
-
-    defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-		targetSdkVersion rootProject.ext.versionTarget
-    }
 
 	lintOptions {
 		checkReleaseBuilds false
