@@ -66,6 +66,7 @@ abstract class AbstractProcessor() {
                 MSG_START -> {
                     handleStartEncode()
                 }
+
                 MSG_STOP -> {
                     handleStopEncode()
                 }
@@ -73,6 +74,20 @@ abstract class AbstractProcessor() {
             true
         }
         mEncodeHandler?.obtainMessage(MSG_START)?.sendToTarget()
+    }
+
+    /**
+     * Pause encode
+     */
+    fun pauseEncode() {
+        mEncodeHandler?.post { handlePauseEncode() }
+    }
+
+    /**
+     * Resume encode
+     */
+    fun resumeEncode() {
+        mEncodeHandler?.post { handleResumeEncode() }
     }
 
     /**
@@ -125,7 +140,7 @@ abstract class AbstractProcessor() {
      * @param data media data, pcm or yuv
      */
     fun putRawData(data: RawData) {
-        if (! mEncodeState.get()) {
+        if (!mEncodeState.get()) {
             return
         }
         if (mRawDataQueue.size >= MAX_QUEUE_SIZE) {
@@ -152,8 +167,16 @@ abstract class AbstractProcessor() {
     protected abstract fun handleStartEncode()
 
     /**
-     * Handle stop encode
+     * Handle pause encode
      */
+    protected abstract fun handlePauseEncode()
+
+    /**
+     * Handle resume encode
+     */
+    protected abstract fun handleResumeEncode()
+
+
     protected abstract fun handleStopEncode()
 
     /**
@@ -185,6 +208,7 @@ abstract class AbstractProcessor() {
                                 Logger.i(TAG, "addTracker is video = $isVideo")
                                 mMp4Muxer?.addTracker(mMediaCodec?.outputFormat, isVideo)
                             }
+
                             else -> {
                                 if (outputIndex < 0) {
                                     return@let
@@ -203,7 +227,12 @@ abstract class AbstractProcessor() {
                                         mMp4Muxer?.pumpStream(outputBuffer, mBufferInfo, isVideo)
 
                                         processOutputData(mBufferInfo, encodeData).apply {
-                                            mEncodeDataCb?.onEncodeData(second,second.size, first, mBufferInfo.presentationTimeUs / 1000)
+                                            mEncodeDataCb?.onEncodeData(
+                                                second,
+                                                second.size,
+                                                first,
+                                                mBufferInfo.presentationTimeUs / 1000
+                                            )
                                         }
                                     }
                                 } catch (e: Exception) {
@@ -246,7 +275,11 @@ abstract class AbstractProcessor() {
         }
     }
 
-    protected abstract fun processOutputData(bufferInfo: MediaCodec.BufferInfo, encodeData: ByteArray): Pair<IEncodeDataCallBack.DataType, ByteArray>
+    protected abstract fun processOutputData(
+        bufferInfo: MediaCodec.BufferInfo,
+        encodeData: ByteArray
+    ): Pair<IEncodeDataCallBack.DataType, ByteArray>
+
     protected abstract fun processInputData(data: ByteArray): ByteArray?
 
     companion object {

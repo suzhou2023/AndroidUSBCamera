@@ -92,6 +92,14 @@ class AACEncodeProcessor(strategy: IAudioStrategy? = null) : AbstractProcessor()
         }
     }
 
+    override fun handlePauseEncode() {
+        mEncodeState.set(false)
+    }
+
+    override fun handleResumeEncode() {
+        mEncodeState.set(true)
+    }
+
     override fun handleStopEncode() {
         try {
             mEncodeState.set(false)
@@ -182,7 +190,7 @@ class AACEncodeProcessor(strategy: IAudioStrategy? = null) : AbstractProcessor()
                 }
             } catch (e: Exception) {
                 mMainHandler.post {
-                    callBack?.onError(e.localizedMessage?: "unknown exception")
+                    callBack?.onError(e.localizedMessage ?: "unknown exception")
                 }
                 Logger.e(TAG, "start/stop play mic failed, err = ${e.localizedMessage}", e)
             }
@@ -250,7 +258,7 @@ class AACEncodeProcessor(strategy: IAudioStrategy? = null) : AbstractProcessor()
                 }
             } catch (e: Exception) {
                 mMainHandler.post {
-                    callBack.onError(e.localizedMessage?: "unknown exception")
+                    callBack.onError(e.localizedMessage ?: "unknown exception")
                 }
                 Logger.e(TAG, "start/stop record mp3 failed, err = ${e.localizedMessage}", e)
             } finally {
@@ -267,7 +275,7 @@ class AACEncodeProcessor(strategy: IAudioStrategy? = null) : AbstractProcessor()
                     }
                 } catch (e: Exception) {
                     mMainHandler.post {
-                        callBack.onError(e.localizedMessage?: "unknown exception")
+                        callBack.onError(e.localizedMessage ?: "unknown exception")
                     }
                     Logger.e(TAG, "stop record mp3 failed, err = ${e.localizedMessage}", e)
                 }

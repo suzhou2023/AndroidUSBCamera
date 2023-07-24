@@ -70,6 +70,14 @@ class H264EncodeProcessor(
         }
     }
 
+    override fun handlePauseEncode() {
+        mEncodeState.set(false)
+    }
+
+    override fun handleResumeEncode() {
+        mEncodeState.set(true)
+    }
+
     override fun handleStopEncode() {
         try {
             mEncodeState.set(false)
@@ -95,12 +103,14 @@ class H264EncodeProcessor(
                 mPpsSps = encodeData
                 Pair(IEncodeDataCallBack.DataType.H264_SPS, encodeData)
             }
+
             MediaCodec.BUFFER_FLAG_KEY_FRAME -> {
                 val iFrameData = ByteArray(mPpsSps.size + bufferInfo.size)
                 System.arraycopy(mPpsSps, 0, iFrameData, 0, mPpsSps.size)
                 System.arraycopy(encodeData, 0, iFrameData, mPpsSps.size, encodeData.size)
                 Pair(IEncodeDataCallBack.DataType.H264_KEY, iFrameData)
             }
+
             else -> {
                 Pair(IEncodeDataCallBack.DataType.H264, encodeData)
             }
@@ -112,11 +122,11 @@ class H264EncodeProcessor(
             null
         } else {
             data.apply {
-                if (size != width * height * 3 /2) {
+                if (size != width * height * 3 / 2) {
                     return null
                 }
                 if (isPortrait) {
-                    YUVUtils.nativeRotateNV21(data,width, height, 90)
+                    YUVUtils.nativeRotateNV21(data, width, height, 90)
                 }
                 YUVUtils.nv21ToYuv420sp(data, width, height)
             }

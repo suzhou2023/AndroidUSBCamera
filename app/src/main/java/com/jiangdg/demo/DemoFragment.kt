@@ -55,8 +55,6 @@ import com.jiangdg.ausbc.render.effect.bean.CameraEffect
 import com.jiangdg.ausbc.utils.*
 import com.jiangdg.ausbc.utils.bus.BusKey
 import com.jiangdg.ausbc.utils.bus.EventBus
-import com.jiangdg.utils.imageloader.ILoader
-import com.jiangdg.utils.imageloader.ImageLoaders
 import com.jiangdg.ausbc.widget.*
 import com.jiangdg.demo.EffectListDialog.Companion.KEY_ANIMATION
 import com.jiangdg.demo.EffectListDialog.Companion.KEY_FILTER
@@ -64,6 +62,8 @@ import com.jiangdg.natives.R
 import com.jiangdg.natives.databinding.DialogMoreBinding
 import com.jiangdg.natives.databinding.FragmentDemoBinding
 import com.jiangdg.utils.MMKVUtils
+import com.jiangdg.utils.imageloader.ILoader
+import com.jiangdg.utils.imageloader.ImageLoaders
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
@@ -82,6 +82,7 @@ class DemoFragment : CameraFragment(), View.OnClickListener, CaptureMediaView.On
     private var mRecSeconds = 0
     private var mRecMinute = 0
     private var mRecHours = 0
+
 
     private val mCameraModeTabMap = mapOf(
         CaptureMediaView.CaptureMode.MODE_CAPTURE_PIC to R.id.takePictureModeTv,

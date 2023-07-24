@@ -31,7 +31,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
-	ndkVersion rootProject.ext.ndkVersion
+	ndkVersion ndkVersion
 }
 
 tasks.withType(JavaCompile) {
